@@ -35,6 +35,7 @@ class _NewExpensesState extends State<NewExpenses> {
           TextField(
             controller: _amountController,
             maxLength: 15,
+            keyboardType: TextInputType.number,
             decoration: const InputDecoration(
               label: Text('Amount'),
               prefixText: 'PKR',
@@ -44,7 +45,9 @@ class _NewExpensesState extends State<NewExpenses> {
           Row(
             children: [
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 child: const Text('Cancel'),
               ),
               ElevatedButton(
