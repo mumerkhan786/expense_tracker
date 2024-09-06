@@ -71,12 +71,13 @@ class _NewExpensesState extends State<NewExpenses> {
           date: _selectedDate!,
           category: _selectedCategory),
     );
+    Navigator.pop(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(18),
+      padding: const EdgeInsets.fromLTRB(18, 48, 18, 18),
       child: Column(
         children: [
           TextField(
