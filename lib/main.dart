@@ -15,6 +15,10 @@ void main() {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       darkTheme: ThemeData.dark().copyWith(
+        appBarTheme: const AppBarTheme().copyWith(
+          backgroundColor: kDarkColorScheme.onPrimaryContainer,
+          foregroundColor: kDarkColorScheme.primaryContainer,
+        ),
         colorScheme: kDarkColorScheme,
         cardTheme: const CardTheme().copyWith(
           color: kDarkColorScheme.secondaryContainer,
@@ -28,6 +32,17 @@ void main() {
               backgroundColor: kDarkColorScheme.primaryContainer,
               foregroundColor: kDarkColorScheme.onPrimaryContainer),
         ),
+        textTheme: ThemeData().textTheme.copyWith(
+              titleLarge: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: kDarkColorScheme.onSecondaryContainer,
+                fontSize: 17,
+              ),
+              titleSmall: TextStyle(
+                fontWeight: FontWeight.normal,
+                color: kDarkColorScheme.onSecondaryContainer,
+              ),
+            ),
       ),
       theme: ThemeData().copyWith(
         colorScheme: kColorScheme,
@@ -50,7 +65,11 @@ void main() {
         textTheme: ThemeData().textTheme.copyWith(
               titleLarge: TextStyle(
                 fontWeight: FontWeight.bold,
+                color: kColorScheme.onSecondaryContainer,
                 fontSize: 17,
+              ),
+              titleSmall: TextStyle(
+                fontWeight: FontWeight.normal,
                 color: kColorScheme.onSecondaryContainer,
               ),
             ),

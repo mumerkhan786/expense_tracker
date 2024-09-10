@@ -26,14 +26,18 @@ class ExpenseItem extends StatelessWidget {
               children: [
                 Text(
                   'PKR ${expense.amount.toStringAsFixed(2)}',
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
                 const Spacer(),
                 Row(
                   children: [
-                    Icon(categoryIcon[expense.category]),
+                    Icon(
+                      categoryIcon[expense.category],
+                    ),
                     const SizedBox(width: 4),
                     Text(
                       expense.formattedDate,
+                      style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ],
                 ),

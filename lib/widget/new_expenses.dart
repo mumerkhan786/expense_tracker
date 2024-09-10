@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/model/expense_structure.dart';
+import 'package:expense_tracker/main.dart';
 
 class NewExpenses extends StatefulWidget {
   const NewExpenses({super.key, required this.onSaveExpense});
@@ -49,9 +50,14 @@ class _NewExpensesState extends State<NewExpenses> {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          title: const Text('Invalid Input'),
-          content: const Text(
-              'Please make sure a valid title, amount, date and category was entered!'),
+          title: Text(
+            'Invalid Input',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          content: Text(
+            'Please make sure a valid title, amount, date and category was entered!',
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
           actions: [
             TextButton(
               onPressed: () {
@@ -76,11 +82,27 @@ class _NewExpensesState extends State<NewExpenses> {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
+
+    TextStyle getTextStyle(
+            {required bool selectMode, required bool isCatergory}) =>
+        TextStyle(
+          fontWeight: isCatergory ? FontWeight.bold : FontWeight.normal,
+          color: isDarkMode
+              ? kDarkColorScheme.onSecondaryContainer
+              : kColorScheme.onSecondaryContainer,
+        );
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(18, 48, 18, 18),
       child: Column(
         children: [
           TextField(
+            style: getTextStyle(
+              selectMode: isDarkMode,
+              isCatergory: false,
+            ),
             controller: _titleController,
             maxLength: 50,
             decoration: const InputDecoration(
@@ -92,6 +114,10 @@ class _NewExpensesState extends State<NewExpenses> {
             children: [
               Expanded(
                 child: TextField(
+                  style: getTextStyle(
+                    selectMode: isDarkMode,
+                    isCatergory: false,
+                  ),
                   controller: _amountController,
                   maxLength: 15,
                   keyboardType: TextInputType.number,
@@ -113,6 +139,7 @@ class _NewExpensesState extends State<NewExpenses> {
                       _selectedDate == null
                           ? 'No Date Selected'
                           : formatter.format(_selectedDate!),
+                      style: Theme.of(context).textTheme.titleSmall,
                     ),
                     IconButton(
                       onPressed: _presentDatePicker,
@@ -129,6 +156,10 @@ class _NewExpensesState extends State<NewExpenses> {
           Row(
             children: [
               DropdownButton(
+                  style: getTextStyle(
+                    selectMode: isDarkMode,
+                    isCatergory: true,
+                  ),
                   value: _selectedCategory,
                   items: Category.values
                       .map(
