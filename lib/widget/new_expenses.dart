@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/model/expense_structure.dart';
-import 'package:expense_tracker/main.dart';
+import 'package:expense_tracker/widget/inputs/text_field_widget.dart';
+import 'package:expense_tracker/widget/inputs/amount_row.dart';
+import 'package:expense_tracker/widget/inputs/catergory_dropdown.dart';
+import 'package:expense_tracker/widget/inputs/date_row.dart';
+import 'package:expense_tracker/widget/actions/action_buttons.dart';
 
 class NewExpenses extends StatefulWidget {
   const NewExpenses({super.key, required this.onSaveExpense});
@@ -85,125 +89,147 @@ class _NewExpensesState extends State<NewExpenses> {
     final isDarkMode =
         MediaQuery.of(context).platformBrightness == Brightness.dark;
 
-    TextStyle getTextStyle(
-            {required bool selectMode, required bool isCatergory}) =>
-        TextStyle(
-          fontWeight: isCatergory ? FontWeight.bold : FontWeight.normal,
-          color: isDarkMode
-              ? kDarkColorScheme.onSecondaryContainer
-              : kColorScheme.onSecondaryContainer,
-        );
-
     final keyboardSpace = MediaQuery.of(context).viewInsets.bottom;
 
-    return SizedBox(
-      height: double.infinity,
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(16, 16, 16, keyboardSpace + 16),
-          child: Column(
-            children: [
-              TextField(
-                style: getTextStyle(
-                  selectMode: isDarkMode,
-                  isCatergory: false,
-                ),
-                controller: _titleController,
-                maxLength: 50,
-                decoration: const InputDecoration(
-                  label: Text('Title'),
-                ),
-              ),
-              const SizedBox(height: 16),
-              Row(
+    return LayoutBuilder(
+      builder: (ctx, constraints) {
+        final isWideScreen = constraints.maxWidth >= 600;
+
+        return SizedBox(
+          height: double.infinity,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(16, 16, 16, keyboardSpace + 16),
+              child: Column(
                 children: [
-                  Expanded(
-                    child: TextField(
-                      style: getTextStyle(
-                        selectMode: isDarkMode,
-                        isCatergory: false,
-                      ),
-                      controller: _amountController,
-                      maxLength: 15,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        label: Text('Amount'),
-                        prefixText: 'PKR',
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 16,
-                  ),
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                  if (isWideScreen)
+                    Column(
                       children: [
-                        Text(
-                          _selectedDate == null
-                              ? 'No Date Selected'
-                              : formatter.format(_selectedDate!),
-                          style: Theme.of(context).textTheme.titleSmall,
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: TextFieldWidget(
+                                controller: _titleController,
+                                label: 'Title',
+                                isDarkMode: isDarkMode,
+                                keyboardType: TextInputType.text,
+                                prefixLabel: '',
+                                maxLength: 50,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 24,
+                            ),
+                            Expanded(
+                              child: AmountRow(
+                                amountController: _amountController,
+                                isDarkMode: isDarkMode,
+                              ),
+                            ),
+                          ],
                         ),
-                        IconButton(
-                          onPressed: _presentDatePicker,
-                          icon: const Icon(
-                            Icons.calendar_month,
-                          ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Row(
+                          children: [
+                            CatergoryDropdown(
+                              selectedCatergory: _selectedCategory,
+                              isDarkMode: isDarkMode,
+                              onChanged: (value) {
+                                setState(() {
+                                  if (value == null) {
+                                    return;
+                                  }
+                                  _selectedCategory = value;
+                                });
+                              },
+                            ),
+                            const Spacer(),
+                            DateRow(
+                              selectedDate: _selectedDate,
+                              onPresentDate: _presentDatePicker,
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        ActionButton(
+                          onSave: _submitExpenseData,
+                          onCancel: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    )
+                  else
+                    Column(
+                      children: [
+                        TextFieldWidget(
+                          controller: _titleController,
+                          label: 'Title',
+                          isDarkMode: isDarkMode,
+                          keyboardType: TextInputType.text,
+                          prefixLabel: '',
+                          maxLength: 50,
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: AmountRow(
+                                amountController: _amountController,
+                                isDarkMode: isDarkMode,
+                              ),
+                            ),
+                            // const Spacer(),
+                            const SizedBox(
+                              width: 24,
+                            ),
+                            DateRow(
+                              onPresentDate: _presentDatePicker,
+                              selectedDate: _selectedDate,
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Row(
+                          children: [
+                            CatergoryDropdown(
+                              selectedCatergory: _selectedCategory,
+                              isDarkMode: isDarkMode,
+                              onChanged: (value) {
+                                setState(() {
+                                  if (value == null) {
+                                    return;
+                                  }
+                                  _selectedCategory = value;
+                                });
+                              },
+                            ),
+                            const Spacer(),
+                            ActionButton(
+                              onSave: _submitExpenseData,
+                              onCancel: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ),
                 ],
               ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  DropdownButton(
-                      style: getTextStyle(
-                        selectMode: isDarkMode,
-                        isCatergory: true,
-                      ),
-                      value: _selectedCategory,
-                      items: Category.values
-                          .map(
-                            (category) => DropdownMenuItem(
-                              value: category,
-                              child: Text(
-                                category.name.toUpperCase(),
-                              ),
-                            ),
-                          )
-                          .toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          if (value == null) {
-                            return;
-                          }
-                          _selectedCategory = value;
-                        });
-                      }),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  const Spacer(),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text('Cancel'),
-                  ),
-                  ElevatedButton(
-                    onPressed: _submitExpenseData,
-                    child: const Text('Save Expenses'),
-                  ),
-                ],
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
