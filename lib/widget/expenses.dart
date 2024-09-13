@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:expense_tracker/widget/chart_bar/chart.dart';
 import 'package:expense_tracker/widget/new_expenses.dart';
-import 'package:flutter/material.dart';
 import 'package:expense_tracker/model/expense_structure.dart';
 import 'package:expense_tracker/widget/expenses_list/expense_list.dart';
 
