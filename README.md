@@ -86,6 +86,7 @@
           <li>chart_bar/
             <ul>
               <li>chart.dart - Bar chart for visualizing expenses</li>
+              <li>chart_bar.dart - Handles the data and logic for the chart</li>
             </ul>
           </li>
           <li>expenses_list/
