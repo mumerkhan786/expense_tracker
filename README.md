@@ -5,15 +5,15 @@
 ## Features
 
 <ul>
-<li><strong>Add New Expenses:</strong>Users can add expenses with a title, amount, date, and category.</li>
-<li><strong>Category Dropdown:</strong>Select expense categories like Leisure, Work, etc.</li>
-<li><strong>Date Picker:</strong>Choose a date for the expense with a built-in date picker.</li>
-<li><strong>Expense List:</strong>View the list of all added expenses.</li>
-<li><strong>Delete & Undo:</strong>Delete expenses with the option to undo the action.</li>
-<li><strong>Chart Display:</strong>Visual representation of expenses via a bar chart.</li>
-<li><strong>Responsive Design:</strong>Optimized for both small (mobile) and large (tablet/desktop) screens.</li>
-<li><strong>Dark Mode Support:</strong>Automatically adjusts to dark mode based on system preferences.</li>
-<li><strong>Error Handling:</strong>Alerts for invalid input when adding new expenses.</li>
+<li><strong>Add New Expenses:</strong> Users can add expenses with a title, amount, date, and category.</li>
+<li><strong>Category Dropdown:</strong> Select expense categories like Leisure, Work, etc.</li>
+<li><strong>Date Picker:</strong> Choose a date for the expense with a built-in date picker.</li>
+<li><strong>Expense List:</strong> View the list of all added expenses.</li>
+<li><strong>Delete & Undo:</strong> Delete expenses with the option to undo the action.</li>
+<li><strong>Chart Display:</strong> Visual representation of expenses via a bar chart.</li>
+<li><strong>Responsive Design:</strong> Optimized for both small (mobile) and large (tablet/desktop) screens.</li>
+<li><strong>Dark Mode Support:</strong> Automatically adjusts to dark mode based on system preferences.</li>
+<li><strong>Error Handling:</strong> Alerts for invalid input when adding new expenses.</li>
 </ul>
 
 ## Installation
@@ -120,9 +120,9 @@
 <p>This project uses the following Flutter dependencies:</p>
 
 <ul>
-<li><strong>flutter:</strong>Flutter SDK</li>
-<li><strong>intl:</strong>To format dates</li>
-<li><strong>provider:</strong>Optional for state management, not currently used</li>
+<li><strong>flutter:</strong> Flutter SDK</li>
+<li><strong>intl:</strong> To format dates</li>
+<li><strong>provider:</strong> Optional for state management, not currently used</li>
 </ul>
 
 <p><strong>To install any of the dependencies, run:</strong></p>
